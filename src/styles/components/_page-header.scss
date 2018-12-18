@@ -1,0 +1,17 @@
+.page-header_custom {
+  background: $off-white;
+  margin-bottom: $l-size;
+  padding: $l-size 0;
+}
+
+.page-header_custom__actions {
+  margin-top: $m-size;
+}
+
+.page-header_custom__title {
+  font-weight: 300;
+  margin: 0;
+  span {
+    font-weight: 700;
+  }
+}
