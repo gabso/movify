@@ -84,11 +84,13 @@ export class MovieList extends React.Component {
     //     return;
     //   }
 
-       this.props.startAddMovie(
-           {movieName,
-            posterURL: 'https://image.tmdb.org/t/p/w185/eQs5hh9rxrk1m4xHsIz1w11Ngqb.jpg'
-        }).then(
+       this.props.startAddMovie(movieName).then(
           (res) => {
+
+            if (res != undefined && res.error){
+              //show pop-up toast with error msg
+              return;
+            }
 
             this.setState({
               forcedPage: true,

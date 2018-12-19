@@ -21,7 +21,7 @@ export class  MovieListItem  extends React.Component {
         return (
     <div className="list-item">
     <div>
-      <h3 className="list-item__title">{this.props.movieName} <span className="list-item__sub-title">{moment(this.props.year).format('YYYY')}</span></h3>
+      <h3 className="list-item__title">{this.props.movieName} <span className="list-item__sub-title">{this.props.year}</span></h3>
       <img src={this.props.posterURL}/>
 
     </div>
