@@ -187,7 +187,7 @@ export class MovieList extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    movies:state.movies,
+    movies:selectMovies(state.movies, state.filters),
     perPage: 1
   };
 };
