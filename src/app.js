@@ -12,6 +12,7 @@ import LoadingPage from './components/LoadingPage';
 import { startSetMovies } from './actions/movies';
 
 
+
 const store = configureStore();
 const jsx = (
   <Provider store={store}>

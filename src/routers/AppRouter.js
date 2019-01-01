@@ -7,6 +7,8 @@ import NotFoundPage from '../components/NotFoundPage';
 import LoginPage from '../components/LoginPage';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const history = createHistory();
 
@@ -19,6 +21,7 @@ const AppRouter = () => (
         <PrivateRoute path="/reveal" component={RevealPage} />
         <Route component={NotFoundPage} />
       </Switch>
+      <ToastContainer position="top-left" />
     </div>
   </Router>
 );

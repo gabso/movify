@@ -36,13 +36,21 @@ export const startAddMovie = (movieName) => {
       posterURL :`https://image.tmdb.org/t/p/w185${res.data.poster_path}`
     };
 
+    return database.ref(`users/${uid}/movies/${res.data.id}`).once('value').then((snapshot) => {
+      if (snapshot.exists()) {
+        return {error: 'movie already exists!'};
+      }
 
-    return database.ref(`users/${uid}/movies`).push(movie).then((ref) => {
-      dispatch(addMovie({
-        id: ref.key,
-        ...movie
-      }));
+      return database.ref(`users/${uid}/movies/${res.data.id}`).set(movie).then((ref) => {
+        dispatch(addMovie({
+          id: res.data.id,
+          ...movie
+        }));
+      });
+
     });
+
+
   });
   };
 };

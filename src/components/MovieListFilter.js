@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { DateRangePicker } from 'react-dates';
+import DateRangePicker from '@wojtekmaj/react-daterange-picker'
 import { setTextFilter, sortByDate, setStartDate, setEndDate } from '../actions/filters';
+
 
 export class MovieListFilters extends React.Component {
   state = {
@@ -11,6 +12,19 @@ export class MovieListFilters extends React.Component {
     this.props.setStartDate(startDate);
     this.props.setEndDate(endDate);
   };
+
+  onstartDateChange = (dates) =>{
+
+    if (!dates){
+      this.props.setStartDate();
+      this.props.setEndDate();
+      return;
+    }
+
+    this.props.setStartDate(dates[0]);
+    this.props.setEndDate(dates[1]);
+  };
+
   onFocusChange = (calendarFocused) => {
     this.setState(() => ({ calendarFocused }));
   }
@@ -38,16 +52,9 @@ export class MovieListFilters extends React.Component {
             />
           </div>
           <div className="input-group__item">
-            <DateRangePicker
-              startDate={this.props.filters.startDate}
-              endDate={this.props.filters.endDate}
-              onDatesChange={this.onDatesChange}
-              focusedInput={this.state.calendarFocused}
-              onFocusChange={this.onFocusChange}
-              showClearDates={true}
-              numberOfMonths={1}
-              isOutsideRange={() => false}
-            />
+          <DateRangePicker className="date-picker" maxDetail="decade"
+          onChange={this.onstartDateChange}
+          value={[this.props.filters.startDate,this.props.filters.endDate]}  />
           </div>
         </div>
       </div>

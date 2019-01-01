@@ -7,6 +7,8 @@ import {startAddMovie} from '../actions/movies';
 import Autosuggest from 'react-autosuggest';
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
+import { toast } from 'react-toastify';
+
 
 
 export class MovieList extends React.Component {
@@ -17,6 +19,7 @@ export class MovieList extends React.Component {
         this.state = {
           movieName: '',
           movieNameSuggestions: [],
+          forcedPage : 0,
           currMovies :  this.props.movies.slice(0,this.props.perPage)
         };
 
@@ -25,8 +28,7 @@ export class MovieList extends React.Component {
       
       }
 
-     
-
+    
 
       onSuggestionsFetchRequested = async ({ value }) => {
 
@@ -88,25 +90,52 @@ export class MovieList extends React.Component {
           (res) => {
 
             if (res != undefined && res.error){
-              //show pop-up toast with error msg
+              toast.info(res.error);
               return;
             }
 
-            this.setState({
-              forcedPage: true,
-              currMovies: this.props.movies.slice( this.props.movies.length - this.props.perPage , this.props.movies.length)
-              // currMovies :  this.props.movies.slice(0,this.props.perPage)
+            this.setState((prevState, props) =>{
+            
+              return{
+                offset: prevState.offset + 1,
+                forcedPage: ((this.props.movies.length / this.props.perPage) -1),
+                currMovies: this.props.movies.slice( this.props.movies.length - this.props.perPage , this.props.movies.length)
+                // currMovies :  this.props.movies.slice(0,this.props.perPage)
+              };
+
             });
+
           }
         );
     }
 
     OnRemove(){
-      this.setState({
-        forcedPage: false,
-        currMovies: this.props.movies.slice(this.state.offset ? this.state.offset : 0 ,(this.props.perPage * ((this.state.selected ? this.state.selected : 0) + 1) ) )
-        // currMovies :  this.props.movies.slice(0,this.props.perPage)
-      });
+
+  
+
+          this.setState((prevState, props) =>{
+
+            if (prevState.offset === this.props.movies.length){
+
+            const lastPage = (this.props.movies.length / this.props.perPage) -1;
+              const currOffset = prevState.offset -this.props.perPage;
+
+              return {
+              forcedPage: lastPage,
+               offset: currOffset,
+               currMovies : this.props.movies.slice(currOffset ? currOffset : 0 ,(this.props.perPage * (lastPage + 1) )  )
+              };
+            }
+            else {
+              return {
+                forcedPage: null,
+                currMovies :  this.props.movies.slice(prevState.offset ? prevState.offset : 0 ,(this.props.perPage * ((prevState.selected ? prevState.selected : 0) + 1) ) )
+              };
+            }
+            });
+
+     
+
     }
 
 
@@ -133,7 +162,7 @@ export class MovieList extends React.Component {
       let selected = data.selected;
       let offset = Math.ceil(selected * this.props.perPage);
   
-      this.setState({offset: offset, selected : selected, forcedPage: false,
+      this.setState({offset: offset, selected : selected, forcedPage: null,
           currMovies: this.props.movies.slice(offset,(this.props.perPage * (selected + 1) ) )
         });
     };
@@ -141,24 +170,26 @@ export class MovieList extends React.Component {
     render(){
         return(
   <div className="content-container">
-      <div className="input-group input-group--add">
-    <div className="input-group__item">
-       {this.renderMovieAutoSuggest()}
-  </div>
+  <div className="input-group input-group--add">
   <div className="input-group__item">
-  <button className="button"
-        onClick={(e) => {
-            this.onAdd(this.state.movieName);
-          }}
-  >Add Movie</button>
-  </div>
-  </div>
+     {this.renderMovieAutoSuggest()}
+</div>
+<div className="input-group__item">
+<button className="button"
+      onClick={(e) => {
+          this.onAdd(this.state.movieName);
+        }}
+>Add Movie</button>
+</div>
+</div>
     <div className="list-header">
+
       <div>Your Movies</div>
+      
     </div>
     <div className="list-body">
     <ReactPaginate previousLabel={"previous"}
-    forcePage={this.state.forcedPage ? ((this.props.movies.length / this.props.perPage) -1) : -1 }
+    forcePage={this.state.forcedPage }
     nextLabel={"next"}
     breakLabel={"..."}
     breakClassName={"break-me"}

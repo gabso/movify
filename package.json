@@ -13,6 +13,7 @@
     "heroku-postbuild": "yarn run build:prod"
   },
   "dependencies": {
+    "@wojtekmaj/react-daterange-picker": "^2.0.1",
     "axios": "^0.18.0",
     "babel-cli": "6.24.1",
     "babel-core": "6.25.0",
@@ -36,12 +37,14 @@
     "react": "16.0.0-rc.3",
     "react-addons-shallow-compare": "15.6.0",
     "react-autosuggest": "^9.4.2",
+    "react-date-picker": "^7.1.1",
     "react-dates": "12.3.0",
     "react-dom": "16.0.0-rc.3",
     "react-modal": "2.2.2",
     "react-paginate": "^6.0.0",
     "react-redux": "5.0.5",
     "react-router-dom": "4.1.2",
+    "react-toastify": "^4.5.1",
     "redux": "3.7.2",
     "redux-mock-store": "1.2.3",
     "redux-thunk": "2.2.0",
