@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import CustomPaginationActionsTable from '../playground/CustomPaginationActionsTable';
 
 export class RevealPage extends React.Component {
 
@@ -15,7 +16,7 @@ export class RevealPage extends React.Component {
 
   render(){
 
-    return(<div>ff</div>);
+    return(<CustomPaginationActionsTable/>);
     }
 }
 
