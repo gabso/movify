@@ -54,9 +54,16 @@ list-item-props {
   }
 }
 
+
+.list-item__content{
+  align-self: start;
+
+}
+
 .list-item__title {
-  margin: 0;
+  margin-left: $s-size;
   word-break: break-all;
+  padding-left: $s-size;
 }
 
 .list-item__sub-title {
@@ -66,9 +73,11 @@ list-item-props {
 
 
 .list-item__data {
-  margin: $s-size 0 0 0;
-  @media (min-width: $desktop-breakpoint) {
-    margin: 0;
-    padding-left: $s-size;
-  }
+  padding-left: $s-size;
+  margin-left: $s-size;
+  overflow: auto;
+  padding-right: $l-size;
+  max-height: $text-m-size; 
+  font-size: $font-size-small;
 }
+

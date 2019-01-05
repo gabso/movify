@@ -21,9 +21,11 @@ export class  MovieListItem  extends React.Component {
         return (
     <div className="list-item">
     <div>
-      <h3 className="list-item__title">{this.props.movieName} <span className="list-item__sub-title">{this.props.year}</span></h3>
       <img src={this.props.posterURL}/>
-
+    </div>
+    <div className="list-item__content">
+    <h3 className="list-item__title">{this.props.movieName} <span className="list-item__sub-title">{this.props.year}</span></h3>
+    <p className="list-item__data">{this.props.overview}</p>
     </div>
     <button
       className="button button--remove"

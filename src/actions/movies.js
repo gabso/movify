@@ -31,6 +31,7 @@ export const startAddMovie = (movieName) => {
       const movie = {
         movieUid :res.data.id,
         movieName : res.data.title,
+        overview: res.data.overview,
       genre : '',
       year: res.data.release_date == '' ? 'Unknown' : moment(res.data.release_date,'YYYY-MM-DD').year(),
       posterURL :`https://image.tmdb.org/t/p/w185${res.data.poster_path}`
